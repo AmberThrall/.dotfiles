@@ -10,7 +10,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="avit"
 
-plugins=(git)
+plugins=(git rust)
 
 source $ZSH/oh-my-zsh.sh
 

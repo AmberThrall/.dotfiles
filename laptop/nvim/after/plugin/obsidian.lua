@@ -1,18 +1,14 @@
 require("obsidian").setup({
     workspaces = {
         {
-            name = "PhD",
-            path = "~/Nextcloud/PhD",
+            name = "notes",
+            path = "~/Nextcloud/notes",
             overrides = {
-                notes_subdir = "Notes",
+                notes_subdir = "content",
                 daily_notes = {
-                    folder = "Notes/Daily"
+                    folder = "content/Daily"
                 },
             },
-        },
-        {
-            name = "Notes",
-            path = "~/Nextcloud/Notes",
-        },
+        }
     },
 })
