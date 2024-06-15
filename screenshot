@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Take a screenshot; choose to edit it, upload to imgur, view or save it.
+
+ssdir=${SCREENSHOT_DIRECTORY:-$HOME/Pictures/Screenshots}
+
+[ -d "$ssdir" ] || mkdir -p "$ssdir"
+img="SS_$(date +%Y-%m-%d_%s).png"
+
+case "$1" in
+    cur) # Active window
+        hyprshot -m window -m active -o "$ssdir" -f "$img"
+        #maim -q -u -i $(xdotool getactivewindow) "$ssdir/$img"
+        ;;
+    sel) # Selection
+        hyprshot -m region -o "$ssdir" -f "$img"
+        #maim -q -u -s "$ssdir/$img"
+        ;;
+    *) # Whole screen
+        hyprshot -m output -o "$ssdir" -f "$img"
+        #maim -q -u "$ssdir/$img"
+        ;;
+esac
+
+#notify-send 'Screenshot Taken' "Saved as $ssdir/$img" --icon "$ssdir/$img"

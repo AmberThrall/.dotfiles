@@ -3,7 +3,7 @@
     "position": "top",
     "output": ["DP-3"],
     "spacing": 0,
-    "height": 34,
+    "height": 28,
     "modules-left": [
         "hyprland/workspaces"
     ],
