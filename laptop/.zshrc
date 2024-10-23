@@ -19,6 +19,7 @@ export EDITOR="nvim"
 alias ls="ls_extended -Fh --group-directories-first"
 alias grep="grep --color=auto"
 alias vim="nvim"
+alias cat="bat"
 
 function chpwd() {
     emulate -L zsh

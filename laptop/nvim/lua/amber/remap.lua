@@ -33,6 +33,10 @@ vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
 vim.keymap.set("v", "j", "gj")
 vim.keymap.set("v", "k", "gk")
+vim.keymap.set("n", "$", "g$")
+vim.keymap.set("n", "0", "g0")
+vim.keymap.set("v", "$", "g$")
+vim.keymap.set("v", "0", "g0")
 
 -- Auto correct spelling
 vim.keymap.set("n", "<leader>.", "z=1<CR><CR>")
