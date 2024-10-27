@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 #export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
-export PATH=$HOME/bin:/usr/local/bin:$HOME/src/cpp/vcpkg:$HOME/.cargo/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/amber/.oh-my-zsh"
@@ -100,9 +100,10 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 alias ls="ls_extended -Fh --group-directories-first"
 alias grep='grep --color=auto'
 alias cp='rsync --progress'
-alias clipboard="xclip -selection clipboard"
 alias topten="history | commands | sort -rn | head"
-alias e='vim'
+alias e='nvim'
+alias vim='nvim'
+alias cat='bat'
 alias wine32='WINEARCH=win32 WINEPREFIX=~/.wine32 wine'
 alias winetricks32='WINEARCH=win32 WINEPREFIX=~/.wine32 winetricks'
 
@@ -116,15 +117,6 @@ function chpwd() {
 function commands() {
     awk '{a[$2]++}END{for(i in a){print a[i] " " i}}'
 }
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-function ruby_prompt_info() { echo '' }
-
-# N64 Development
-export N64_INST=/opt/n64
 
 # PYENV
 export PYENV_ROOT="$HOME/.pyenv"

@@ -23,6 +23,8 @@ return require('packer').startup(function(use)
     -- Better syntax highlighiting
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 
+    use { "L3MON4D3/LuaSnip", run = "make install_jsregexp" }
+
     -- Language server
     use {
         'VonHeikemen/lsp-zero.nvim',

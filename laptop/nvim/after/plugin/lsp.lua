@@ -35,7 +35,16 @@ require('mason-lspconfig').setup({
         require('lspconfig').ltex.setup({
             settings = {
                 ltex = {
-                    dictionary = { ["en-US"] = words }
+                    dictionary = { ["en-US"] = words },
+                    disabledRules = { 
+                        ["en"] = {"MORFOLOGIK_RULE_EN"}, 
+                        ["en-AU"] = {"MORFOLOGIK_RULE_EN_AU"}, 
+                        ["en-CA"] = {"MORFOLOGIK_RULE_EN_CA"},
+                        ["en-GB"] = {"MORFOLOGIK_RULE_EN_GB"},
+                        ["en-NZ"] = {"MORFOLOGIK_RULE_EN_NZ"}, 
+                        ["en-US"] = {"MORFOLOGIK_RULE_EN_US"}, 
+                        ["en-ZA"] = {"MORFOLOGIK_RULE_EN_ZA"} 
+                    }
                 }
             }
         })

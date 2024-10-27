@@ -15,6 +15,11 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
+local words = {}
+for word in io.open(vim.fn.stdpath("config") .. "/spell/en.utf-8.add", "r"):lines() do
+	table.insert(words, word)
+end
+
 -- to learn how to use mason.nvim with lsp-zero
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 require('mason').setup({})
@@ -26,7 +31,25 @@ require('mason-lspconfig').setup({
       local lua_opts = lsp_zero.nvim_lua_ls()
       require('lspconfig').lua_ls.setup(lua_opts)
     end,
-  }
+    ltex = function()
+        require('lspconfig').ltex.setup({
+            settings = {
+                ltex = {
+                    dictionary = { ["en-US"] = words },
+                    disabledRules = { 
+                        ["en"] = {"MORFOLOGIK_RULE_EN"}, 
+                        ["en-AU"] = {"MORFOLOGIK_RULE_EN_AU"}, 
+                        ["en-CA"] = {"MORFOLOGIK_RULE_EN_CA"},
+                        ["en-GB"] = {"MORFOLOGIK_RULE_EN_GB"},
+                        ["en-NZ"] = {"MORFOLOGIK_RULE_EN_NZ"}, 
+                        ["en-US"] = {"MORFOLOGIK_RULE_EN_US"}, 
+                        ["en-ZA"] = {"MORFOLOGIK_RULE_EN_ZA"} 
+                    }
+                }
+            }
+        })
+    end,
+  },
 })
 
 local cmp = require('cmp')
