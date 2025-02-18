@@ -99,13 +99,14 @@ alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias ls="ls_extended -Fh --group-directories-first"
 alias grep='grep --color=auto'
-alias cp='rsync --progress'
+#alias cp='rsync --progress'
 alias topten="history | commands | sort -rn | head"
 alias e='nvim'
 alias vim='nvim'
 alias cat='bat'
 alias wine32='WINEARCH=win32 WINEPREFIX=~/.wine32 wine'
 alias winetricks32='WINEARCH=win32 WINEPREFIX=~/.wine32 winetricks'
+#alias ssh="kitten ssh"
 
 eval $(thefuck --alias)
 
@@ -121,4 +122,12 @@ function commands() {
 # PYENV
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+eval "$(pyenv init - zsh)"
+
+# AMPL
+export AMPL_LICFILE=$HOME/.ampl/ampl.lic
+export AMPLKEY_RUNTIME_DIR=$HOME/.ampl
+export PATH=/opt/ampl/:$PATH
+
+# TMUX Macro
+bindkey -s ^f "tmux-sessionizer\n"
