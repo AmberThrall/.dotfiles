@@ -1,4 +1,3 @@
-vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Move blocks of code up and down
@@ -41,3 +40,9 @@ vim.keymap.set("v", "0", "g0")
 -- Auto correct spelling
 vim.keymap.set("n", "<leader>.", "z=1<CR><CR>")
 vim.keymap.set("v", "<leader>.", "z=1<CR><CR>")
+
+-- LSP controls
+vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+vim.keymap.set('n', '<leader>vd', '<cmd>lua vim.diagnostic.open_float()<cr>')
+
