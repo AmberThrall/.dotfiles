@@ -107,6 +107,7 @@ alias cat='bat'
 alias wine32='WINEARCH=win32 WINEPREFIX=~/.wine32 wine'
 alias winetricks32='WINEARCH=win32 WINEPREFIX=~/.wine32 winetricks'
 #alias ssh="kitten ssh"
+alias gam='git ls-files --modified | xargs git add'
 
 eval $(thefuck --alias)
 
