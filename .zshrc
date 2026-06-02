@@ -109,6 +109,7 @@ alias wine32='WINEARCH=win32 WINEPREFIX=~/.wine32 wine'
 alias winetricks32='WINEARCH=win32 WINEPREFIX=~/.wine32 winetricks'
 alias ubuntuvm='sudo docker run -it --rm -v "$PWD":/src -w /src ubuntu:22.04 bash'
 #alias ssh="kitten ssh"
+alias gam='git ls-files --modified | xargs git add'
 
 eval $(thefuck --alias)
 

@@ -55,7 +55,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 bindsym $mod+Return exec kitty
 bindsym $mod+e exec thunar
@@ -214,6 +214,7 @@ for_window [class="^.*"] border pixel 0
 # Specific floating windows
 for_window [class="Qalculate-gtk"] floating enable
 for_window [class="BoltLauncher"] floating enable
+for_window [title="Figure 1"] floating enable
 for_window [class="matplotlib"] floating enable
 
 # All windows on workspace 5 float by default
