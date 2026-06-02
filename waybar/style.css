@@ -16,7 +16,7 @@ window#waybar.hidden {
 }
 
 #workspaces {
-    border-radius: 5px 0px 0px 5px;
+    border-radius: 5px 5px 5px 5px;
     transition: none;
     background: #383c4a;
 }
