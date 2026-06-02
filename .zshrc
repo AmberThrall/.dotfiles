@@ -107,6 +107,7 @@ alias vim='nvim'
 alias cat='bat'
 alias wine32='WINEARCH=win32 WINEPREFIX=~/.wine32 wine'
 alias winetricks32='WINEARCH=win32 WINEPREFIX=~/.wine32 winetricks'
+alias ubuntuvm='sudo docker run -it --rm -v "$PWD":/src -w /src ubuntu:22.04 bash'
 #alias ssh="kitten ssh"
 
 eval $(thefuck --alias)
