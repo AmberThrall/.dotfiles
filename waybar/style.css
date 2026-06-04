@@ -18,7 +18,7 @@ window#waybar.hidden {
 #workspaces {
     border-radius: 5px 5px 5px 5px;
     transition: none;
-    background: #383c4a;
+    background: transparent;
 }
 
 #workspaces button {
@@ -81,7 +81,7 @@ window#waybar.hidden {
     /*border-radius: 10px 0px 0px 10px;*/
     transition: none;
     color: #ffffff;
-    background: #383c4a;
+    background: transparent;
 }
 
 #custom-pacman {
@@ -90,7 +90,7 @@ window#waybar.hidden {
     /*border-radius: 10px 0px 0px 10px;*/
     transition: none;
     color: #ffffff;
-    background: #383c4a;
+    background: transparent;
 }
 
 #custom-mail {
@@ -117,7 +117,7 @@ window#waybar.hidden {
     border-radius: 5px 5px 5px 5px;
     transition: none;
     color: #ffffff;
-    background: #383c4a;
+    background: transparent;
 }
 
 #custom-weather {
@@ -134,7 +134,7 @@ window#waybar.hidden {
     border-radius: 5px 0px 0px 5px;
     transition: none;
     color: #ffffff;
-    background: #383c4a;
+    background: transparent;
 }
 
 #pulseaudio.muted {
@@ -146,7 +146,7 @@ window#waybar.hidden {
     /*border-radius: 10px;*/
     transition: none;
     color: #ffffff;
-    background: #383c4a;
+    background: transparent;
 }
 
 #temperature {
@@ -168,7 +168,7 @@ window#waybar.hidden {
     border-radius: 0px 5px 5px 0px;
     transition: none;
     color: #ffffff;
-    background: #383c4a;
+    background: transparent;
 }
 
 @keyframes blink {
