@@ -192,13 +192,35 @@ hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "
 hl.config({
     dwindle = {
         preserve_split = true, -- You probably want this
+        smart_split = false,
+        split_width_multiplier = 0.5,
+        precise_mouse_move = true,
+        split_bias = 1,
     },
+})
+
+hl.layout.register("grid", {
+    recalculate = function(ctx)
+        local n = #ctx.targets
+        if n == 0 then
+            return
+        end
+
+        local cols = math.ceil(math.sqrt(n))
+
+        for i, target in ipairs(ctx.targets) do
+            target:place(ctx:grid_cell(i, cols))
+        end
+    end,
 })
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
 hl.config({
     master = {
         new_status = "master",
+        orientation = "left",
+        mfact = 0.71, -- Make the master 16:9
+        drop_at_cursor = true,
     },
 })
 
@@ -335,7 +357,7 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 hl.workspace_rule({ workspace = "1", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "2", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "3", monitor = "DP-1", default = true })
-hl.workspace_rule({ workspace = "4", monitor = "DP-1" })
+hl.workspace_rule({ workspace = "4", monitor = "DP-1", layout = "master" })
 hl.workspace_rule({ workspace = "5", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "6", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "7", monitor = "DP-1" })
