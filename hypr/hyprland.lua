@@ -18,19 +18,15 @@
 hl.monitor({
     output   = "DP-1",
     mode     = "preferred",
-    position = "0x1080",
+    position = "0x0",
     scale    = "1",
 })
-hl.monitor({
-    output   = "DP-2",
-    mode     = "preferred",
-    position = "440x0",
-    scale    = "1",
-})
-hl.monitor({
-    output = "HDMI-A-1",
-    disabled = true,
-})
+--hl.monitor({
+--    output   = "HDMI-A-1",
+--    mode     = "3840x2160@60",
+--    position = "5120x2160",
+--   scale    = "1",
+--})
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -53,6 +49,7 @@ local menu        = "~/.config/rofi/launchers/type-1/launcher.sh"
 --
 hl.on("hyprland.start", function () 
     hl.exec_cmd("waybar")
+    hl.exec_cmd("nm-applet")
     hl.exec_cmd("dunst -config ~/.config/dunstrc")
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd("hypridle")
@@ -101,7 +98,8 @@ hl.config({
         border_size = 2,
 
         col = {
-            active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
+            --active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
+            active_border   = { colors = {"rgba(8a3324ee)", "rgba(973e05ee)"}, angle = 45 },
             inactive_border = "rgba(595959aa)",
         },
 
@@ -139,6 +137,10 @@ hl.config({
 
     animations = {
         enabled = true,
+    },
+
+    quirks = {
+        prefer_hdr = 1,
     },
 })
 
@@ -193,7 +195,7 @@ hl.config({
     dwindle = {
         preserve_split = true, -- You probably want this
         smart_split = false,
-        split_width_multiplier = 0.5,
+        split_width_multiplier = 0.33,
         precise_mouse_move = true,
         split_bias = 1,
     },
@@ -217,9 +219,10 @@ hl.layout.register("grid", {
 -- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
 hl.config({
     master = {
-        new_status = "master",
-        orientation = "left",
-        mfact = 0.71, -- Make the master 16:9
+        new_status = "inherit",
+        allow_small_split = true,
+        orientation = "center",
+        mfact = 0.35, -- Make the master 16:9
         drop_at_cursor = true,
     },
 })
@@ -288,14 +291,22 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+--hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("qalculate-gtk"))
 hl.bind(mainMod .. " + Space", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+-- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
+hl.bind(mainMod .. " + P", hl.dsp.window.resize({ x = 1920, y = 1080, relative = false }))
+hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.resize({ x = 2560, y = 1440, relative = false }))
+hl.bind(mainMod .. " + CTRL + P", hl.dsp.window.resize({ x = 1280, y = 720, relative = false }))
+hl.bind(mainMod .. " + SHIFT + CTRL + P", hl.dsp.window.resize({ x = 3840, y = 2160, relative = false }))
+
+-- Disable / Enable monitor
+hl.bind(mainMod .. " + F10", hl.dsp.dpms({ action = "enable" }), hl.dsp.exec_cmd("brightnessctl -r"))
+hl.bind(mainMod .. " + SHIFT + F10", hl.dsp.dpms({ action = "disable" }))
 
 -- ALT TAB
 hl.bind("ALT + Tab", hl.dsp.window.cycle_next())
@@ -355,17 +366,18 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
 hl.workspace_rule({ workspace = "1", monitor = "DP-1" })
-hl.workspace_rule({ workspace = "2", monitor = "DP-1" })
-hl.workspace_rule({ workspace = "3", monitor = "DP-1", default = true })
-hl.workspace_rule({ workspace = "4", monitor = "DP-1", layout = "master" })
+hl.workspace_rule({ workspace = "2", monitor = "DP-1", default = true })
+hl.workspace_rule({ workspace = "3", monitor = "DP-1" })
+hl.workspace_rule({ workspace = "4", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "5", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "6", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "7", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "8", monitor = "DP-1" })
-hl.workspace_rule({ workspace = "10", monitor = "DP-2" })
+hl.workspace_rule({ workspace = "10", monitor = "DP-1" })
 
--- All windows on workspace 3 float by default
+-- All windows on workspace 3 and 4 float by default
 hl.window_rule({ match = { workspace = "3" }, float = true })
+hl.window_rule({ match = { workspace = "4" }, float = true })
 
 -- Fix runelite
 hl.window_rule({ match = { class = "net-runelite-client-Runelite", title = "^(win[0-9]+)$" }, float = true, no_initial_focus = true })

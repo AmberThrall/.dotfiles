@@ -1,31 +1,93 @@
 return {
-    'nvim-treesitter/nvim-treesitter',
-    branch = "master",
-    lazy = false,
-    build = ':TSUpdate',
-    opts = {
-        -- A list of parser names, or "all" (the five listed parsers should always be installed)
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "rust", "markdown", "markdown_inline" },
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    main = "nvim-treesitter",
+    -- build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+    init = function()
+      local highlight = function(bufnr, lang)
+        -------------------[ treesitter highlights ]-------------------------------
+        if not vim.treesitter.language.add(lang) then
+          return vim.notify(
+            string.format("Treesitter cannot load parser for language: %s", lang),
+            vim.log.levels.INFO,
+            { title = "Treesitter" }
+          )
+        end
+        vim.treesitter.start(bufnr)
+      end
 
-        -- Install parsers synchronously (only applied to `ensure_installed`)
-        sync_install = true,
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(args)
+          local ft = vim.bo.filetype
+          local bt = vim.bo.buftype
+          local buf = args.buf
 
-        -- Automatically install missing parsers when entering buffer
-        -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-        auto_install = true,
+          if bt ~= "" then
+            return
+          end -- don't run further.
 
-        highlight = {
-            enable = true,
-            --disable = { 'latex' },
+          local ok, treesitter = pcall(require, "nvim-treesitter")
+          if not ok then
+            return
+          end
 
-            -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-            -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-            -- Using this option may slow down your editor, and you may see some duplicate highlights.
-            -- Instead of true it can also be a list of languages
-            additional_vim_regex_highlighting = { 'latex', 'markdown' },
-        },
-    },
-    config = function(_, opts) 
-        require("nvim-treesitter.configs").setup(opts)
+          ---------------------[ treesitter indent ]-------------------------------
+
+          if not vim.tbl_contains({ "python", "html", "yaml", "markdown" }, ft) then
+            vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+          end
+
+          --------------------[ treesitter parsers ]-------------------------------
+          if vim.fn.executable "tree-sitter" ~= 1 then
+            vim.api.nvim_echo({
+              {
+                "tree-sitter CLI not found. Parsers cannot be installed.",
+                "ErrorMsg",
+              },
+            }, true, {})
+            return false
+          end
+
+          if not vim.treesitter.language.get_lang(ft) then
+            return
+          end
+
+          if vim.list_contains(treesitter.get_installed(), ft) then
+            highlight(buf, ft)
+          elseif vim.list_contains(treesitter.get_available(), ft) then
+            treesitter.install(ft):await(function()
+              highlight(buf, ft)
+            end)
+          end
+        end,
+      })
     end,
-}
+    opts = {
+      install = {
+        "c",
+        "cpp",
+        "comment",
+        "markdown",
+        "markdown_inline",
+        "regex",
+        "vimdoc",
+        "lua",
+        "rust",
+      },
+    },
+    config = function(_, opts)
+      local treesitter = require "nvim-treesitter"
+      treesitter.setup(opts)
+      if vim.fn.executable "tree-sitter" ~= 1 then
+        vim.api.nvim_echo({
+          {
+            "tree-sitter CLI not found. Parsers cannot be installed.",
+            "ErrorMsg",
+          },
+        }, true, {})
+        return false
+      end
+      treesitter.install(opts.install)
+    end,
+  }
